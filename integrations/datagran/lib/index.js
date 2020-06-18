@@ -79,7 +79,13 @@ Datagran.prototype.loaded = function() {
  */
 
 Datagran.prototype.identify = function(identify) {
-  window.dgTrack('identify', identify.userId());
+  /* eslint-disable no-undef */
+  if (cordova && cordova.plugins.datagran) {
+    cordova.plugins.datagran.identify(identify.userId());
+  } else {
+    window.dgTrack('identify', identify.userId());
+  }
+  /* eslint-enable no-undef */
 };
 
 /**
@@ -90,5 +96,14 @@ Datagran.prototype.identify = function(identify) {
  */
 
 Datagran.prototype.track = function(track) {
-  window.dgTrack(track.event(), track.properties());
+  /* eslint-disable no-undef */
+  if (cordova && cordova.plugins.datagran) {
+    var eventInfo = track.properties() || {};
+    eventInfo.eventName = track.event();
+
+    cordova.plugins.datagran.trackCustom(eventInfo);
+  } else {
+    window.dgTrack(track.event(), track.properties());
+  }
+  /* eslint-enable no-undef */
 };

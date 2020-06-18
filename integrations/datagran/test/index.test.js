@@ -9,6 +9,7 @@ var Datagran = require('../lib/');
 describe('Datagran', function() {
   var analytics;
   var datagran;
+  var cordova;
   var options = {
     AccountId: '5ee3aad230e5afc2eb5ccc73',
     WorkspaceId: '5eb4731b0b7fb8952619e25c',
@@ -87,7 +88,7 @@ describe('Datagran', function() {
       analytics.equal(tag.attrs.src, 'https://cdn2.datagran.io/datagran.js');
     });
 
-    describe('#identify', function() {
+    describe('#identify on web', function() {
       beforeEach(function() {
         analytics.stub(window.dg_tracker, 'trackEvent');
       });
@@ -98,7 +99,18 @@ describe('Datagran', function() {
       });
     });
 
-    describe('#track', function() {
+    describe('#identify on hybrid', function() {
+      beforeEach(function() {
+        analytics.stub(cordova.plugins.datagran, 'identify');
+      });
+
+      it('should send an id to SDK', function() {
+        analytics.identify('id1234');
+        analytics.called(cordova.plugins.datagran.identify, 'id1234');
+      });
+    });
+
+    describe('#track on web', function() {
       beforeEach(function() {
         analytics.stub(window.dg_tracker, 'trackEvent');
       });
@@ -111,6 +123,27 @@ describe('Datagran', function() {
       it('should send an event and properties', function() {
         analytics.track('One event name', { property: true });
         analytics.called(window.dg_tracker.trackEvent, 'One event name', {
+          property: true
+        });
+      });
+    });
+
+    describe('#track on hybrid', function() {
+      beforeEach(function() {
+        analytics.stub(cordova.plugins.datagran, 'trackCustom');
+      });
+
+      it('should send an event to SDK', function() {
+        analytics.track('event');
+        analytics.called(cordova.plugins.datagran.trackCustom, {
+          eventName: 'event'
+        });
+      });
+
+      it('should send an event and properties to SDK', function() {
+        analytics.track('One event name', { property: true });
+        analytics.called(cordova.plugins.datagran.trackCustom, {
+          eventName: 'event',
           property: true
         });
       });

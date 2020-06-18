@@ -1,7 +1,7 @@
 {
   "name": "@foodylatam/analytics.js-integration-datagran",
-  "description": "The Amplitude analytics.js integration.",
-  "version": "1.0.0",
+  "description": "The Datagran analytics.js integration.",
+  "version": "1.1.0",
   "keywords": [
     "analytics.js",
     "analytics.js-integration",
@@ -15,13 +15,13 @@
   },
   "author": "Foody <contacto@foody.com.co>",
   "license": "SEE LICENSE IN LICENSE",
-  "homepage": "https://github.com/segmentio/analytics.js-integrations/blob/master/integrations/datagran#readme",
+  "homepage": "https://github.com/foodylatam/analytics.js-integrations/blob/master/integrations/datagran#readme",
   "bugs": {
-    "url": "https://github.com/segmentio/analytics.js-integrations/issues"
+    "url": "https://github.com/foodylatam/analytics.js-integrations/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/segmentio/analytics.js-integrations.git"
+    "url": "git+https://github.com/foodylatam/analytics.js-integrations.git"
   },
   "dependencies": {
     "@segment/analytics.js-integration": "^3.3.0",
